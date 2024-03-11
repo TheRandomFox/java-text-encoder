@@ -14,14 +14,13 @@ public class Cypher {
 
 	boolean isValidChar(String inputChar) {
 		/* Checks if input character belongs to the list of valid characters */
-		boolean isValid = tableDefault.contains(inputChar);
-		return isValid;
+		return tableDefault.contains(inputChar);
 	}
 	
 	String generateCypher(String key) {
 		/* Generate encoded cypher table.
-		 * Find offset 'distance' by locating index of given key (case-insensitive) 
-		 * within tableDefault. Duplicate into new String and shift positions of chars accordingly.
+		 * Find offset 'distance' by locating index of given key within tableDefault. 
+		 * Duplicate into new String and shift positions of chars accordingly.
 		 */
 		int offset = tableDefault.indexOf(key);
 		String encoded = tableDefault;
