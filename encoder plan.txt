@@ -1,0 +1,98 @@
+USE CASES:
+1.	Accepts char key input (optional, default = "Q")
+2.	Accepts String input, displays encoded String output.
+3.	Accepts encoded String input, displays decoded String output.
+		
+CLASSES:
+1.	public class Main
+		Attributes:
+			String plainText
+			String encodedText
+			char key
+		
+		Methods:
+			public String encode (String plainText, char key) {
+				// Check if inputs contain invalid characters using Cypher.isValidChar()
+					If Cypher.isValidChar() == False, break operation.
+				// Loop:
+					encodedText.concat(Cypher.tableEncoded.charAt(Cypher.tableDefault.indexOf(plainText.charAt(i)) ) );
+				return toString(key)+encodedText;
+			}
+			public String decode (String encodedText, char key) {
+				// Converts encodedText to plainText using Cypher class.
+				// Check if inputs contain invalid characters using Cypher.isValidChar()
+					If Cypher.isValidChar() == False, break operation.
+				// Loop:
+					plainText.concat(Cypher.tableDefault.charAt(Cypher.tableEncoded.indexOf(encodedText.charAt(i)) ) );
+				return plainText;
+			}
+
+2.	public class Cypher
+		Attributes:
+			char key
+			static final String tableDefault //initialised
+			String tableEncoded
+		
+		Methods:
+			boolean isValidChar (String tableDefault, char inputChar) {
+				// Check if tableDefault.contains(inputChar)
+				// If false, print "Invalid characters used." and break search loop.
+				return bool;
+			}
+		
+			String generateCypher (String tableDefault, char key = "A") {
+				// Generates tableEncoded String
+				// Find offset 'distance' by locating index of given key (case-insensitive) within tableDefault and shifting positions of chars accordingly into new String.
+				return tableEncoded;
+			}
+			
+==========
+
+TEST CASES:
+1.	// Normal encode function
+	Inputs:
+		key: "B"
+		plainText: "HELLO WORLD"
+	Expected output: "BGDKKN VNQKC"
+	
+2.	// Case-sensitivity
+	Inputs:
+		key: "b"
+		plainText: "hello world"
+	Expected output: "BGDKKN VNQKC"
+	
+3.	// Default key
+	Inputs:
+		key: (none)
+		plainText: "HELLO WORLD"
+	Expected output: "AHELLO WORLD"
+	
+4.	// Invalid plainText input
+	Inputs:
+		key: "B"
+		plainText: "!@#$%^&"
+	Expected output: "Error: Invalid characters used."
+	
+5.	// Invalid key input
+	Inputs:
+		key: "?"
+		plainText: "HELLO WORLD"
+	Expected output: "Error: Invalid characters used."
+	
+6.	// Normal decode function
+	Inputs:
+		key: "B"
+		encodedText: "BGDKKN VNQKC"
+	Expected output: "HELLO WORLD"
+	
+7.	// Wrong key provided to decode function
+	Inputs:
+		key: "C"
+		encodedText: "BGDKKN VNQKC"
+	Expected output: "CACJJM UMPJB"
+	
+8.	// Invalid encodedText input
+	Inputs:
+		key: "B"
+		encodedText: "!@#$%^&"
+	Expected output: "Error: Invalid characters used."
