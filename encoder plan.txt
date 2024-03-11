@@ -12,15 +12,15 @@ CLASSES:
 		
 		Methods:
 			public String encode (String plainText, String key) {
-				// Check if inputs contain invalid characters using Cypher.isValidChar()
-					If Cypher.isValidChar() == False, break operation.
+				// Check if inputs contain characters not in table using Cypher.isValidChar()
+					If Cypher.isValidChar() == False, concat character to output String as-is.
 				// Loop:
 					encodedText.concat(Cypher.tableEncoded.charAt(Cypher.tableDefault.indexOf(plainText.charAt(i)) ) );
-				return toString(key)+encodedText;
+				return key+encodedText;
 			}
 			public String decode (String encodedText, String key) {
 				// Converts encodedText to plainText using Cypher class.
-				// Check if inputs contain invalid characters using Cypher.isValidChar()
+				// Check if inputs contain characters not in table using Cypher.isValidChar()
 				// Loop:
 					plainText.concat(Cypher.tableDefault.charAt(Cypher.tableEncoded.indexOf(encodedText.charAt(i)) ) );
 				return plainText;
@@ -35,7 +35,6 @@ CLASSES:
 		Methods:
 			boolean isValidChar (String inputChar) {
 				// Check if tableDefault.contains(inputChar)
-				// If false, print "Invalid characters used." and break search loop.
 				return bool;
 			}
 		
