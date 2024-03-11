@@ -10,18 +10,24 @@ CLASSES:
 			String encodedText
 			String key
 		
+		// key.toUpper()
+		// check key against Cypher.isValidChar()
+		// If invalid character, deny key value.
+		
 		Methods:
 			public String encode (String plainText, String key) {
-				// Check if inputs contain characters not in table using Cypher.isValidChar()
-					If Cypher.isValidChar() == False, concat character to output String as-is.
+				// Pass key to Cypher.generateCypher() to get encoded cypher table.
 				// Loop:
-					encodedText.concat(Cypher.tableEncoded.charAt(Cypher.tableDefault.indexOf(plainText.charAt(i)) ) );
+					// Check if inputs contain characters not in table using Cypher.isValidChar()
+					// If Cypher.isValidChar() == False, concat character to output String as-is.
+					// encodedText.concat(Cypher.tableEncoded.charAt(Cypher.tableDefault.indexOf(plainText.charAt(i)) ) );
 				return key+encodedText;
 			}
+			
 			public String decode (String encodedText, String key) {
 				// Converts encodedText to plainText using Cypher class.
-				// Check if inputs contain characters not in table using Cypher.isValidChar()
 				// Loop:
+					// Check if inputs contain characters not in table using Cypher.isValidChar()
 					plainText.concat(Cypher.tableDefault.charAt(Cypher.tableEncoded.indexOf(encodedText.charAt(i)) ) );
 				return plainText;
 			}
