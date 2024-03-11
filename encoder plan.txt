@@ -1,27 +1,26 @@
 USE CASES:
-1.	Accepts char key input (optional, default = "Q")
-2.	Accepts String input, displays encoded String output.
+1.	Accepts String key input (optional, default = "G")
+2.	Accepts String plaintext input, displays encoded String output.
 3.	Accepts encoded String input, displays decoded String output.
 		
 CLASSES:
-1.	public class Main
+1.	public class Encoder
 		Attributes:
 			String plainText
 			String encodedText
-			char key
+			String key
 		
 		Methods:
-			public String encode (String plainText, char key) {
+			public String encode (String plainText, String key) {
 				// Check if inputs contain invalid characters using Cypher.isValidChar()
 					If Cypher.isValidChar() == False, break operation.
 				// Loop:
 					encodedText.concat(Cypher.tableEncoded.charAt(Cypher.tableDefault.indexOf(plainText.charAt(i)) ) );
 				return toString(key)+encodedText;
 			}
-			public String decode (String encodedText, char key) {
+			public String decode (String encodedText, String key) {
 				// Converts encodedText to plainText using Cypher class.
 				// Check if inputs contain invalid characters using Cypher.isValidChar()
-					If Cypher.isValidChar() == False, break operation.
 				// Loop:
 					plainText.concat(Cypher.tableDefault.charAt(Cypher.tableEncoded.indexOf(encodedText.charAt(i)) ) );
 				return plainText;
@@ -29,18 +28,18 @@ CLASSES:
 
 2.	public class Cypher
 		Attributes:
-			char key
+			String key
 			static final String tableDefault //initialised
 			String tableEncoded
 		
 		Methods:
-			boolean isValidChar (String tableDefault, char inputChar) {
+			boolean isValidChar (String inputChar) {
 				// Check if tableDefault.contains(inputChar)
 				// If false, print "Invalid characters used." and break search loop.
 				return bool;
 			}
 		
-			String generateCypher (String tableDefault, char key = "A") {
+			String generateCypher (String key) {
 				// Generates tableEncoded String
 				// Find offset 'distance' by locating index of given key (case-insensitive) within tableDefault and shifting positions of chars accordingly into new String.
 				return tableEncoded;
@@ -65,19 +64,19 @@ TEST CASES:
 	Inputs:
 		key: (none)
 		plainText: "HELLO WORLD"
-	Expected output: "AHELLO WORLD"
+	Expected output: "GB.FFI QILF-"
 	
-4.	// Invalid plainText input
+4.	// Invalid chars in plainText input
 	Inputs:
-		key: "B"
+		key: "A"
 		plainText: "!@#$%^&"
-	Expected output: "Error: Invalid characters used."
+	Expected output: "A!@#$%^&"
 	
 5.	// Invalid key input
 	Inputs:
 		key: "?"
 		plainText: "HELLO WORLD"
-	Expected output: "Error: Invalid characters used."
+	Expected output: "Error: Invalid key."
 	
 6.	// Normal decode function
 	Inputs:
@@ -91,8 +90,8 @@ TEST CASES:
 		encodedText: "BGDKKN VNQKC"
 	Expected output: "CACJJM UMPJB"
 	
-8.	// Invalid encodedText input
+8.	// Invalid chars in encodedText input
 	Inputs:
 		key: "B"
 		encodedText: "!@#$%^&"
-	Expected output: "Error: Invalid characters used."
+	Expected output: "!@#$%^&"
