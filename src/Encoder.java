@@ -40,20 +40,23 @@ public class Encoder {
     }
 
     public String encode (String pltext, String key) {
-        /* Generate Cypher object. Init encodedText with key character.
+        /* Instantiate Cypher object. Init encodedText with key character.
          * For each character in pltext input...
          *      check if inputs contain characters not in table.
          *      If true, pass to Cypher.mapCharToCypher().
          *      Else, add to encodedText string as-is.
         */
-        Cypher cypher = new Cypher(key);
+        Cypher cypr = new Cypher(key);
         String currChar;
+        int charIndex;
 
-        encodedText = key; //resets any existing data in encodedText
+        encodedText = key; //reset existing data
+        
         for (int i=0; i<pltext.length(); i++) {
             currChar = String.valueOf(pltext.charAt(i));
             if (Cypher.isValidChar(currChar)) {
-                encodedText += Cypher.mapCharToCypher(currChar, cypher);
+                charIndex = Cypher.tableDefault.indexOf(currChar);
+                encodedText += String.valueOf(cypr.tableEncoded.charAt(charIndex));
             }
             else {
                 encodedText += currChar;
@@ -62,5 +65,26 @@ public class Encoder {
         return encodedText;
     }
 
-    // public String decode (String entext, String key)
+    public String decode (String entext) {
+        /* Decodes encodedText to plainText. Reverse of encode().
+         */
+        String currChar;
+        int charIndex;
+        key = String.valueOf(entext.charAt(0));
+        Cypher cypr = new Cypher(key);
+
+        plainText = ""; //reset existing data
+
+        for (int i=0; i<entext.length(); i++) {
+            currChar = String.valueOf(entext.charAt(i));
+            if (Cypher.isValidChar(currChar)) {
+                charIndex = cypr.tableEncoded.indexOf(currChar);
+                plainText += String.valueOf(Cypher.tableDefault.charAt(charIndex));
+            }
+            else {
+                plainText += currChar;
+            }
+        }
+        return plainText;
+    }
 }
