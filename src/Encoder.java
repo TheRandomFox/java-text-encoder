@@ -23,9 +23,9 @@ public class Encoder {
                     /* Encode
                      * Request plaintext input & key. Ensure key is valid.
                     */
-                    System.out.print("Enter plaintext message: ");
-                    plainText = scan.next().toUpperCase();
                     while (true) {
+                        System.out.print("Enter plaintext message: ");
+                        plainText = scan.next().toUpperCase();
                         System.out.print("Enter cypher key (1 character only): ");
                         key = scan.next().toUpperCase();
 
@@ -42,18 +42,31 @@ public class Encoder {
                             if (Cypher.isValidChar(key)==false) {
                                 System.out.println("Error: Invalid character(s) used as key.");
                             }
-                            System.out.println(""); //skip line for spacing
+                            System.out.println("\n"); //skip lines for spacing
                             key = "";
-                            // let user enter another key
+                            // let user try another key
                         }
                     }
                     encodedText = encode(plainText, key);
-                    System.out.println("Encoded message: " + encodedText);
+                    System.out.println("Encoded message: " + encodedText + "\n");
                 }
                 else if (mode == 2) {
                     /* decode
                      * Request encoded text input (no key required)
                      */
+                    while (true) {
+                        System.out.print("Enter encoded message: ");
+                        encodedText = scan.next().toUpperCase();
+                        key = String.valueOf(encodedText.charAt(0));
+                    
+                        if (Cypher.isValidChar(key)) {
+                            plainText = decode(encodedText, key);
+                            System.out.println("Decoded message: " + plainText + "\n");
+                        }
+                        else {
+                            System.out.println("Error: Invalid message format.\n");
+                        }
+                    }
                 }
                 else if (mode == 5) {
                     /* Hidden mode: Toggle debug messages. 
@@ -69,6 +82,7 @@ public class Encoder {
                 }
                 else if (mode == 0) {
                     System.out.println("Application is closing...");
+                    scan.close();
                     System.exit(0);
                 }
                 else {
@@ -94,7 +108,7 @@ public class Encoder {
         String currChar;
         int charIndex;
 
-        String encodedText = key; //reset existing data
+        String encodedText = key; //reset existing data if any
         
         for (int i=0; i<pltext.length(); i++) {
             currChar = String.valueOf(pltext.charAt(i));
@@ -110,7 +124,7 @@ public class Encoder {
         return encodedText;
     }
 
-    static String decode (String entext) {
+    static String decode (String entext, String key) {
         /* Decodes encodedText to plainText. Reverse of encode().
          * Uses first char in encoded text input as "key" value.
          */
@@ -118,22 +132,21 @@ public class Encoder {
 
         String currChar;
         int charIndex;
-        String key = String.valueOf(entext.charAt(0));
         Cypher cypr = new Cypher(key);
 
-        String plainText = ""; //reset existing data
+        String pltext = ""; //reset existing data if any
 
         for (int i=1; i<entext.length(); i++) {
             currChar = String.valueOf(entext.charAt(i));
             if (Cypher.isValidChar(currChar)) {
                 charIndex = cypr.tableEncoded.indexOf(currChar);
-                plainText += String.valueOf(Cypher.tableDefault.charAt(charIndex));
+                pltext += String.valueOf(Cypher.tableDefault.charAt(charIndex));
             }
             else {
-                plainText += currChar;
+                pltext += currChar;
             }
         }
         if (debugMode) {System.out.println("Debug: decode() successful");}
-        return plainText;
+        return pltext;
     }
 }
