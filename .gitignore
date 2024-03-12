@@ -25,3 +25,4 @@ replay_pid*
 VScode-java-README.md
 src/reference_table.txt
 bin/reference_table.txt
+*.txt
