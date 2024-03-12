@@ -12,15 +12,24 @@ public class Cypher {
 		tableEncoded = generateCypher(key_in);
 	}
 
-	boolean isValidChar(String inputChar) {
+	static boolean isValidChar(String inputChar) {
 		/* Checks if input character belongs to the list of valid characters */
 		return tableDefault.contains(inputChar);
+	}
+
+	static String mapCharToCypher(String currChar, Cypher cypher) {
+		/* Finds index of input char in tableDefault.
+		 * Returns char at the same index in encoded table.
+		 */
+		int i = tableDefault.indexOf(currChar);
+		return String.valueOf(cypher.tableEncoded.charAt(i));
 	}
 	
 	String generateCypher(String key) {
 		/* Generate encoded cypher table.
 		 * Find offset 'distance' by locating index of given key within tableDefault. 
-		 * Duplicate into new String and shift positions of chars accordingly.
+		 * Duplicate default table, slices off a chunk of String the length of offset from the back end,
+		 * then reattaches the slice to the front of modified table.
 		 */
 		int offset = tableDefault.indexOf(key);
 		String encoded = tableDefault;
