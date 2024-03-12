@@ -6,23 +6,15 @@ public class Cypher {
 	String tableEncoded;
 	static final String tableDefault = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789()*+,-./";
 	
-	public Cypher(String key_in) {
-		/* constructor */
-		key = key_in;
-		tableEncoded = generateCypher(key_in);
+	public Cypher(String key) {
+		/* constructors */
+		this.key = key;
+		this.tableEncoded = generateCypher(key);
 	}
 
 	static boolean isValidChar(String inputChar) {
 		/* Checks if input character belongs to the list of valid characters */
 		return tableDefault.contains(inputChar);
-	}
-
-	static String mapCharToCypher(String currChar, Cypher cypher) {
-		/* Finds index of input char in tableDefault.
-		 * Returns char at the same index in encoded table.
-		 */
-		int i = tableDefault.indexOf(currChar);
-		return String.valueOf(cypher.tableEncoded.charAt(i));
 	}
 	
 	String generateCypher(String key) {
