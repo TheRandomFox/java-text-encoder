@@ -1,5 +1,5 @@
 USE CASES:
-1.	Accepts String key input (optional, default = "G")
+1.	Accepts String key input (optional, default = "A")
 2.	Accepts String plaintext input, displays encoded String output.
 3.	Accepts encoded String input, displays decoded String output.
 		
@@ -69,7 +69,7 @@ TEST CASES:
 	Inputs:
 		key: (none)
 		plainText: "HELLO WORLD"
-	Expected output: "GB.FFI QILF-"
+	Expected output: "AHELLO WORLD"
 	
 4.	// Invalid chars in plainText input
 	Inputs:
@@ -85,18 +85,10 @@ TEST CASES:
 	
 6.	// Normal decode function
 	Inputs:
-		key: "B"
 		encodedText: "BGDKKN VNQKC"
 	Expected output: "HELLO WORLD"
 	
-7.	// Wrong key provided to decode function
+7.	// Invalid chars in encodedText input
 	Inputs:
-		key: "C"
-		encodedText: "BGDKKN VNQKC"
-	Expected output: "CACJJM UMPJB"
-	
-8.	// Invalid chars in encodedText input
-	Inputs:
-		key: "B"
 		encodedText: "!@#$%^&"
 	Expected output: "!@#$%^&"
