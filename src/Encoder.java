@@ -1,10 +1,12 @@
 import java.util.*;
 
 public class Encoder {
+    String plainText;
+    String encodedText;
+    String key;
+    
     public static void main(String[] args) throws Exception {
-        String plainText;
-        String encodedText;
-        String key;
+        
         int mode = 3; //init with arbitrary value that is not 1, 2 or 0.
         Scanner scan = new Scanner(System.in);
 
@@ -17,7 +19,7 @@ public class Encoder {
                 mode = scan.nextInt();
                 if (mode == 1) {
                     // encode
-                    // Request plaintext input, key (optional)
+                    // Request plaintext input, key (optional). Ensure key is valid.
                 }
                 else if (mode == 2) {
                     // decode
@@ -37,13 +39,28 @@ public class Encoder {
         }
     }
 
-    public String encode (String plainText_in, String key) {
-        // Generate cypher
+    public String encode (String pltext, String key) {
+        /* Generate Cypher object. Init encodedText with key character.
+         * For each character in pltext input...
+         *      check if inputs contain characters not in table.
+         *      If true, pass to Cypher.mapCharToCypher().
+         *      Else, add to encodedText string as-is.
+        */
         Cypher cypher = new Cypher(key);
+        String currChar;
 
-        // Check if inputs contain characters not in table 
-        
+        encodedText = key; //resets any existing data in encodedText
+        for (int i=0; i<pltext.length(); i++) {
+            currChar = String.valueOf(pltext.charAt(i));
+            if (Cypher.isValidChar(currChar)) {
+                encodedText += Cypher.mapCharToCypher(currChar, cypher);
+            }
+            else {
+                encodedText += currChar;
+            }
+        }
+        return encodedText;
     }
 
-    // public String decode (String encodedText_in, String key)
+    // public String decode (String entext, String key)
 }
