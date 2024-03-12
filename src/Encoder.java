@@ -1,29 +1,71 @@
 import java.util.*;
 
 public class Encoder {
-    String plainText;
-    String encodedText;
-    String key;
-    
+    static boolean debugMode = false;
+
     public static void main(String[] args) throws Exception {
+        String key = "";
+        String plainText;
+        String encodedText;
+        int mode = 9; //init with arbitrary value that is not 1, 2, 5 or 0.
         
-        int mode = 3; //init with arbitrary value that is not 1, 2 or 0.
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Java Text Encoder -- by Abdul Halim Slamat \n");
         while (true) {
             // Main loop
             // Request userinput (encode or decode)
-            System.out.println("Select mode. \n[1] Encode plain text \n[2] Decode encoded text \n[0] Close application");
+            System.out.println("Enter a number to select mode.");
+            System.out.println("[1] Encode plain text \n[2] Decode encoded text \n[0] Close application");
             try {
                 mode = scan.nextInt();
                 if (mode == 1) {
-                    // encode
-                    // Request plaintext input, key (optional). Ensure key is valid.
+                    /* Encode
+                     * Request plaintext input & key. Ensure key is valid.
+                    */
+                    System.out.print("Enter plaintext message: ");
+                    plainText = scan.next().toUpperCase();
+                    while (true) {
+                        System.out.print("Enter cypher key (1 character only): ");
+                        key = scan.next().toUpperCase();
+
+                        if (key.length()<=1 & Cypher.isValidChar(key)) {
+                            if (key=="") {
+                                key = "A"; //default value if no key provided
+                            }
+                            break;
+                        }
+                        else {
+                            if (key.length()>1) {
+                                System.out.println("Error: Invalid key. Too long.");
+                            }
+                            if (Cypher.isValidChar(key)==false) {
+                                System.out.println("Error: Invalid character(s) used as key.");
+                            }
+                            System.out.println(""); //skip line for spacing
+                            key = "";
+                            // let user enter another key
+                        }
+                    }
+                    encodedText = encode(plainText, key);
+                    System.out.println("Encoded message: " + encodedText);
                 }
                 else if (mode == 2) {
-                    // decode
-                    // Request encoded text input (no key required)
+                    /* decode
+                     * Request encoded text input (no key required)
+                     */
+                }
+                else if (mode == 5) {
+                    /* Hidden mode: Toggle debug messages. 
+                    */
+                    if (debugMode == false) {
+                        debugMode = true;
+                        System.out.println("Debug messages are now on.");
+                    }
+                    else {
+                        debugMode = false;
+                        System.out.println("Debug messages are now off.");
+                    }
                 }
                 else if (mode == 0) {
                     System.out.println("Application is closing...");
@@ -39,18 +81,20 @@ public class Encoder {
         }
     }
 
-    public String encode (String pltext, String key) {
+    static String encode (String pltext, String key) {
         /* Instantiate Cypher object. Init encodedText with key character.
          * For each character in pltext input...
          *      check if inputs contain characters not in table.
          *      If true, pass to Cypher.mapCharToCypher().
          *      Else, add to encodedText string as-is.
         */
+        if (debugMode) {System.out.print("Debug: Encoder.encode()... ");}
+
         Cypher cypr = new Cypher(key);
         String currChar;
         int charIndex;
 
-        encodedText = key; //reset existing data
+        String encodedText = key; //reset existing data
         
         for (int i=0; i<pltext.length(); i++) {
             currChar = String.valueOf(pltext.charAt(i));
@@ -62,20 +106,24 @@ public class Encoder {
                 encodedText += currChar;
             }
         }
+        if (debugMode) {System.out.println("Debug: encode() successful");}
         return encodedText;
     }
 
-    public String decode (String entext) {
+    static String decode (String entext) {
         /* Decodes encodedText to plainText. Reverse of encode().
+         * Uses first char in encoded text input as "key" value.
          */
+        if (debugMode) {System.out.print("Debug: starting Encoder.decode()... ");}
+
         String currChar;
         int charIndex;
-        key = String.valueOf(entext.charAt(0));
+        String key = String.valueOf(entext.charAt(0));
         Cypher cypr = new Cypher(key);
 
-        plainText = ""; //reset existing data
+        String plainText = ""; //reset existing data
 
-        for (int i=0; i<entext.length(); i++) {
+        for (int i=1; i<entext.length(); i++) {
             currChar = String.valueOf(entext.charAt(i));
             if (Cypher.isValidChar(currChar)) {
                 charIndex = cypr.tableEncoded.indexOf(currChar);
@@ -85,6 +133,7 @@ public class Encoder {
                 plainText += currChar;
             }
         }
+        if (debugMode) {System.out.println("Debug: decode() successful");}
         return plainText;
     }
 }

@@ -14,6 +14,7 @@ public class Cypher {
 
 	static boolean isValidChar(String inputChar) {
 		/* Checks if input character belongs to the list of valid characters */
+		if (Encoder.debugMode) {System.out.println("Debug: starting Cypher.isValidChar()... ");}
 		return tableDefault.contains(inputChar);
 	}
 	
@@ -23,13 +24,17 @@ public class Cypher {
 		 * Duplicate default table, slices off a chunk of String the length of offset from the back end,
 		 * then reattaches the slice to the front of modified table.
 		 */
+		if (Encoder.debugMode) {System.out.println("Debug: starting Cypher.generateCypher()... ");}
+		
 		int offset = tableDefault.indexOf(key);
 		String encoded = tableDefault;
 		String temp = encoded.substring(encoded.length()-1-offset);
 		encoded = encoded.substring(0,encoded.length()-offset);
 		encoded = temp.concat(encoded);
-		
-		System.out.println("Debug: tableEncoded: "+ encoded);
+		if (Encoder.debugMode) {
+			System.out.println("Debug: generateCypher() successful.");
+			System.out.println("Debug: tableEncoded: "+ encoded);
+		}
 		return encoded;
 	}
 }
