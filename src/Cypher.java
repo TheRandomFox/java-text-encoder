@@ -27,8 +27,9 @@ public class Cypher {
 		if (Encoder.debugMode) {System.out.println("Debug: starting Cypher.generateCypher()... ");}
 		
 		int offset = tableDefault.indexOf(key);
+		if (Encoder.debugMode) {System.out.println("Debug: offset: "+offset);}
 		String encoded = tableDefault;
-		String temp = encoded.substring(encoded.length()-1-offset);
+		String temp = encoded.substring(encoded.length()-offset);
 		encoded = encoded.substring(0,encoded.length()-offset);
 		encoded = temp.concat(encoded);
 		if (Encoder.debugMode) {
