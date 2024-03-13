@@ -1,7 +1,7 @@
-USE CASES:
-1.	Accepts String key input (optional, default = "A")
-2.	Accepts String plaintext input, displays encoded String output.
-3.	Accepts encoded String input, displays decoded String output.
+FEATURES:
+1.	Accepts String key input (default = "A")
+2.	Accepts String plaintext input, case-insensitive, and displays encoded String output.
+3.	Accepts encoded String input, case-insensitive, and displays decoded String output.
 		
 CLASSES:
 1.	public class Encoder
@@ -19,8 +19,7 @@ CLASSES:
 				// Pass key to Cypher.generateCypher() to get encoded cypher table.
 				// Loop:
 					// Check if inputs contain characters not in table using Cypher.isValidChar()
-					// If Cypher.isValidChar() == False, concat character to output String as-is.
-					// 
+					// If true, encode normally. If false, add to output String as-is.
 				return key+encodedText;
 			}
 			
@@ -28,7 +27,7 @@ CLASSES:
 				// Converts encodedText to plainText using Cypher class.
 				// Loop:
 					// Check if inputs contain characters not in table using Cypher.isValidChar()
-					
+					// If true, decode normally. Else, add to output String as-is.
 				return plainText;
 			}
 
@@ -41,12 +40,13 @@ CLASSES:
 		Methods:
 			boolean isValidChar (String inputChar) {
 				// Check if tableDefault.contains(inputChar)
-				return bool;
+				return boolean;
 			}
 		
 			String generateCypher (String key) {
 				// Generates tableEncoded String
-				// Find offset 'distance' by locating index of given key (case-insensitive) within tableDefault and shifting positions of chars accordingly into new String.
+				// Find offset 'distance' by locating index of given key (case-insensitive) within tableDefault.
+				// Clone tableDefault. Slice length of offset from end of clone table and reattach it to the beginning.
 				return tableEncoded;
 			}
 			
@@ -65,7 +65,7 @@ TEST CASES:
 		plainText: "HELLO WORLD"
 	Expected output: "Q96++. G.B+5"
 	
-2.	// Case-sensitivity
+2.	// Case-insensitivity
 	Inputs:
 		key: "b"
 		plainText: "hello world"
@@ -93,7 +93,12 @@ TEST CASES:
 		encodedText: "Q96++. G.B+5"
 	Expected output: "HELLO WORLD"
 	
-6.	// Invalid chars in encodedText input
+6.	// Invalid chars in encodedText key
 	Inputs:
 		encodedText: "!@#$%^&"
-	Expected output: "!@#$%^&"
+	Expected output: "Error: Invalid message format."
+	
+7.	// Invalid chars in encodedText message body
+	Inputs:
+		encodedText: "A@#$%^&"
+	Expected output: "@#$%^&"
