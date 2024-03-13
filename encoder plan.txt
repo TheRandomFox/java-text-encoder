@@ -71,35 +71,29 @@ TEST CASES:
 		plainText: "hello world"
 	Expected output: "BGDKKN VNQKC"
 	
-3.	// Default key
-	Inputs:
-		key: (none)
-		plainText: "HELLO WORLD"
-	Expected output: "AHELLO WORLD"
-	
-4.	// Invalid chars in plainText input
+3.	// Invalid chars in plainText input
 	Inputs:
 		key: "A"
 		plainText: "!@#$%^&"
 	Expected output: "A!@#$%^&"
 	
-5.	// Invalid key input
+4.	// Invalid key input
 	Inputs:
 		key: "?"
 		plainText: "HELLO WORLD"
 	Expected output: "Error: Invalid key."
 	
-6a.	// Normal decode function 1
+5a.	// Normal decode function 1
 	Inputs:
 		encodedText: "BGDKKN VNQKC"
 	Expected output: "HELLO WORLD"
 	
-6b.	// Normal decode function 2
+5b.	// Normal decode function 2
 	Inputs:
 		encodedText: "Q96++. G.B+5"
 	Expected output: "HELLO WORLD"
 	
-7.	// Invalid chars in encodedText input
+6.	// Invalid chars in encodedText input
 	Inputs:
 		encodedText: "!@#$%^&"
 	Expected output: "!@#$%^&"
