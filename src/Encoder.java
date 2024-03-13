@@ -1,10 +1,10 @@
 import java.util.*;
 
 public class Encoder {
-    static boolean debugMode = false;
+    static boolean debugMode = true;
 
     public static void main(String[] args) throws Exception {
-        String key = "";
+        String key;
         String plainText;
         String encodedText;
         int mode = 9; //init with arbitrary value that is not 1, 2, 5 or 0.
@@ -19,15 +19,19 @@ public class Encoder {
             System.out.println("[1] Encode plain text \n[2] Decode encoded text \n[0] Close application");
             try {
                 mode = scan.nextInt();
+                scan.nextLine();
                 if (mode == 1) {
                     /* Encode
                      * Request plaintext input & key. Ensure key is valid.
                     */
                     while (true) {
                         System.out.print("Enter plaintext message: ");
-                        plainText = scan.next().toUpperCase();
-                        System.out.print("Enter cypher key (1 character only): ");
+                        plainText = scan.nextLine().toUpperCase();
+                        if (debugMode) {System.out.println("Debug: plainText: " + plainText);}
+                        
+                        System.out.print("\nEnter cypher key (1 character only): ");
                         key = scan.next().toUpperCase();
+                        if (debugMode) {System.out.println("Debug: key: " + key);}
 
                         if (key.length()<=1 & Cypher.isValidChar(key)) {
                             if (key=="") {
@@ -56,7 +60,7 @@ public class Encoder {
                      */
                     while (true) {
                         System.out.print("Enter encoded message: ");
-                        encodedText = scan.next().toUpperCase();
+                        encodedText = scan.nextLine().toUpperCase();
                         key = String.valueOf(encodedText.charAt(0));
                     
                         if (Cypher.isValidChar(key)) {
@@ -102,7 +106,7 @@ public class Encoder {
          *      If true, pass to Cypher.mapCharToCypher().
          *      Else, add to encodedText string as-is.
         */
-        if (debugMode) {System.out.print("Debug: Encoder.encode()... ");}
+        if (debugMode) {System.out.println("Debug: Encoder.encode()... ");}
 
         Cypher cypr = new Cypher(key);
         String currChar;
@@ -128,7 +132,7 @@ public class Encoder {
         /* Decodes encodedText to plainText. Reverse of encode().
          * Uses first char in encoded text input as "key" value.
          */
-        if (debugMode) {System.out.print("Debug: starting Encoder.decode()... ");}
+        if (debugMode) {System.out.println("Debug: starting Encoder.decode()... ");}
 
         String currChar;
         int charIndex;
