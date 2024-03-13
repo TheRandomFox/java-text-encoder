@@ -20,7 +20,7 @@ CLASSES:
 				// Loop:
 					// Check if inputs contain characters not in table using Cypher.isValidChar()
 					// If Cypher.isValidChar() == False, concat character to output String as-is.
-					// encodedText.concat(Cypher.tableEncoded.charAt(Cypher.tableDefault.indexOf(plainText.charAt(i)) ) );
+					// 
 				return key+encodedText;
 			}
 			
@@ -28,7 +28,7 @@ CLASSES:
 				// Converts encodedText to plainText using Cypher class.
 				// Loop:
 					// Check if inputs contain characters not in table using Cypher.isValidChar()
-					plainText.concat(Cypher.tableDefault.charAt(Cypher.tableEncoded.indexOf(encodedText.charAt(i)) ) );
+					
 				return plainText;
 			}
 
